@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8545947625C99ED90024CFB3 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8545947525C99ED90024CFB3 /* GradientView.swift */; };
 		8583F97C25C9511600F46B44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8583F97B25C9511600F46B44 /* AppDelegate.swift */; };
 		8583F97E25C9511600F46B44 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8583F97D25C9511600F46B44 /* SceneDelegate.swift */; };
 		8583F98025C9511600F46B44 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8583F97F25C9511600F46B44 /* LoginViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8545947525C99ED90024CFB3 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		8583F97825C9511600F46B44 /* LoginApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8583F97B25C9511600F46B44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8583F97D25C9511600F46B44 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				8583F97F25C9511600F46B44 /* LoginViewController.swift */,
 				8583F99325C9588900F46B44 /* WelcomeViewController.swift */,
 				8583F98125C9511600F46B44 /* Main.storyboard */,
+				8545947525C99ED90024CFB3 /* GradientView.swift */,
 				8583F98425C9511800F46B44 /* Assets.xcassets */,
 				8583F98625C9511800F46B44 /* LaunchScreen.storyboard */,
 				8583F98925C9511800F46B44 /* Info.plist */,
@@ -142,6 +145,7 @@
 			files = (
 				8583F98025C9511600F46B44 /* LoginViewController.swift in Sources */,
 				8583F99425C9588900F46B44 /* WelcomeViewController.swift in Sources */,
+				8545947625C99ED90024CFB3 /* GradientView.swift in Sources */,
 				8583F97C25C9511600F46B44 /* AppDelegate.swift in Sources */,
 				8583F97E25C9511600F46B44 /* SceneDelegate.swift in Sources */,
 			);

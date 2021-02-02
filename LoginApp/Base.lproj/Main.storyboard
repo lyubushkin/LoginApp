@@ -82,7 +82,7 @@
         <scene sceneID="jOm-Rm-PVO">
             <objects>
                 <viewController id="mqt-rb-RXW" customClass="WelcomeViewController" customModule="LoginApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qve-Mn-lma">
+                    <view key="view" contentMode="scaleToFill" id="qve-Mn-lma" customClass="GradientView" customModule="LoginApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
