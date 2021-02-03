@@ -12,6 +12,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var userNameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
+    @IBOutlet var logInnButton: UIButton!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destinationVC = segue.destination as?
@@ -32,11 +33,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         
         userNameTextField.autocorrectionType = .no
-        userNameTextField.returnKeyType = UIReturnKeyType.next
+        userNameTextField.spellCheckingType = .no
         
+        userNameTextField.returnKeyType = UIReturnKeyType.next
         passwordTextField.returnKeyType = UIReturnKeyType.done
     }
-        
+    
     @IBAction func logInButtonPressed(_ sender: UIButton) {
         guard userNameTextField.text == "User" &&
                 passwordTextField.text == "Password" else {
@@ -90,7 +92,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        let nextTag = textField.tag + 1
+
+        let nextResponder = textField.superview?.viewWithTag(nextTag)
+
+            if nextResponder != nil {
+                nextResponder?.becomeFirstResponder()
+            } else {
+                textField.resignFirstResponder()
+                performLoginAction()
+            }
+        
         return true
     }
+    
+    private func performLoginAction() {
+        logInButtonPressed(logInnButton)
+    }
 }
+
+
 
