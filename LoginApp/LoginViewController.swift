@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBOutlet var userNameTextField: UITextField!
@@ -27,21 +27,70 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userNameTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        userNameTextField.autocorrectionType = .no
+        userNameTextField.returnKeyType = UIReturnKeyType.next
+        
+        passwordTextField.returnKeyType = UIReturnKeyType.done
     }
-    
-    @IBAction func logInButtonPressed() {
+        
+    @IBAction func logInButtonPressed(_ sender: UIButton) {
         guard userNameTextField.text == "User" &&
-                passwordTextField.text == "Password" else { return }
+                passwordTextField.text == "Password" else {
+            
+            inputValidation(sender)
+            
+            return
+        }
         
         performSegue(withIdentifier: "welcomeSegue", sender: nil)
+    }
+    
+    @IBAction func forgotButtonPressed(_ sender: UIButton) {
+       inputValidation(sender)
     }
     
     @IBAction func unwindToLogInScreen(segue: UIStoryboardSegue) {
         guard segue.identifier == "unwindSegue" else { return }
         
-        self.userNameTextField.text = ""
-        self.passwordTextField.text = ""
+        self.userNameTextField.text = nil
+        self.passwordTextField.text = nil
     }
     
+    private func inputValidation(_ button: UIButton) {
+        var message = ""
+        var title = "Oops!"
+        
+        switch button.tag {
+        case 0:
+            message = "You name is User 😉"
+        case 1:
+            message = "You password is Password 😉"
+        case 2:
+            message = "Please, enter correct login and password"
+            title = "Invalid login or password"
+            
+            passwordTextField.text = nil
+        default:
+            break
+        }
+        
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "ОК",
+                                     style: .default,
+                                     handler: nil)
+        
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
+    }
 }
 
