@@ -14,18 +14,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var logInnButton: UIButton!
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destinationVC = segue.destination as?
-                WelcomeViewController else { return }
-        guard let userName = userNameTextField.text else { return }
-        
-        destinationVC.userName = userName
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,6 +25,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         userNameTextField.returnKeyType = UIReturnKeyType.next
         passwordTextField.returnKeyType = UIReturnKeyType.done
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard
+            let destinationVC = segue.destination as? WelcomeViewController
+        else { return }
+        
+        guard let userName = userNameTextField.text else { return }
+        
+        destinationVC.userName = userName
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
     }
     
     @IBAction func logInButtonPressed(_ sender: UIButton) {
@@ -56,10 +59,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func unwindToLogInScreen(segue: UIStoryboardSegue) {
-        guard segue.identifier == "unwindSegue" else { return }
-        
-        self.userNameTextField.text = nil
-        self.passwordTextField.text = nil
+        userNameTextField.text = nil
+        passwordTextField.text = nil
     }
     
     private func inputValidation(_ button: UIButton) {
@@ -76,6 +77,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             title = "Invalid login or password"
             
             passwordTextField.text = nil
+            passwordTextField.becomeFirstResponder()
+            
         default:
             break
         }
@@ -89,6 +92,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func performLoginAction() {
+        logInButtonPressed(logInnButton)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -105,10 +112,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         
         return true
-    }
-    
-    private func performLoginAction() {
-        logInButtonPressed(logInnButton)
     }
 }
 

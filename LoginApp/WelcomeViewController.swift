@@ -21,8 +21,4 @@ class WelcomeViewController: UIViewController {
         welcomeNameLabel.text = "Welcome, \(userName)!"
         
     }
-
-    @IBAction func logOutButtonPressed() {
-        performSegue(withIdentifier: "unwindSegue", sender: nil)
-    }
 }
