@@ -14,6 +14,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var logInnButton: UIButton!
     
+    let proofLogin = Pass.getLogin()
+    let proofPassword = Pass.getPassword()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,12 +32,31 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard
-            let destinationVC = segue.destination as? WelcomeViewController
+            let tabBarController = segue.destination as? UITabBarController
         else { return }
         
-        guard let userName = userNameTextField.text else { return }
+        for viewController in tabBarController.viewControllers! {
+            
+            if let welcomeVC = viewController as? WelcomeViewController {
+                
+                welcomeVC.userName = User.getInfoAboutUser().userInfo.fullName
+                
+            } else if let navigationVC =
+                        viewController as? UINavigationController {
+                if let aboutUserVC =
+                    navigationVC.topViewController as? AboutMeViewController {
+                    
+                    aboutUserVC.userHobby =
+                        User.getInfoAboutUser().userInfo.hobby
+                    aboutUserVC.userJob =
+                        User.getInfoAboutUser().userInfo.job
+                    aboutUserVC.fullName =
+                        User.getInfoAboutUser().userInfo.fullName
+                    
+                }
+            }
+        }
         
-        destinationVC.userName = userName
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -43,13 +65,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func logInButtonPressed(_ sender: UIButton) {
-        guard userNameTextField.text == "User" &&
-                passwordTextField.text == "Password" else {
-            
-            inputValidation(sender)
-            
-            return
-        }
+        guard checkLoginPassword() else { inputValidation(sender)
+            return }
         
         performSegue(withIdentifier: "welcomeSegue", sender: nil)
     }
@@ -63,15 +80,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.text = nil
     }
     
+    private func checkLoginPassword() -> Bool {
+        if userNameTextField.text == proofLogin &&
+            passwordTextField.text == proofPassword { return true }
+
+        return false
+    }
+    
     private func inputValidation(_ button: UIButton) {
         var message = ""
         var title = "Oops!"
         
         switch button.tag {
         case 0:
-            message = "You name is User 😉"
+            message = "You name is \(proofLogin) 😉"
         case 1:
-            message = "You password is Password 😉"
+            message = "You password is \(proofPassword) 😉"
         case 2:
             message = "Please, enter correct login and password"
             title = "Invalid login or password"
@@ -101,7 +125,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         let nextTag = textField.tag + 1
-
         let nextResponder = textField.superview?.viewWithTag(nextTag)
 
             if nextResponder != nil {
