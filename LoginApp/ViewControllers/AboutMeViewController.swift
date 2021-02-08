@@ -13,8 +13,10 @@ class AboutMeViewController: UIViewController {
     
     @IBOutlet var avatarImage: UIImageView!
     
+    var userAvatar: String!
     var userHobby: String!
     var userJob: String!
+    
     var fullName: String!
     
     override func viewDidLoad() {
@@ -25,8 +27,7 @@ class AboutMeViewController: UIViewController {
         
         title = fullName
         
-        avatarImage.image =
-            UIImage(named: User.getInfoAboutUser().userInfo.avatar)
+        avatarImage.image = UIImage(named: userAvatar)
         avatarImage.layer.cornerRadius = avatarImage.frame.size.width / 2
         avatarImage.clipsToBounds = true
         avatarImage.layer.borderWidth = 2

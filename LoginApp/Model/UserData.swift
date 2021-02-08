@@ -7,11 +7,6 @@
 
 import Foundation
 
-struct Pass {
-    let login: String
-    let password: String
-}
-
 struct User {
     let userName: String
     let password: String
@@ -31,26 +26,15 @@ struct Person {
     let avatar: String
 }
 
-extension Pass {
-    static func getLogin() -> String {
-        "User"
-    }
-    
-    static func getPassword() -> String {
-        "Password"
-    }
-}
-
 extension User {
     static func getInfoAboutUser() -> User {
-        let user = User(userName: "User",
-                        password: "Pssword",
-                        userInfo: Person(name: "Aleksey",
-                                         sureName: "Lyubushkin",
-                                         hobby: "fishing",
-                                         job: "Autoportal Ferio",
-                                         avatar: "lyubushkin"))
-        return user
+        User(userName: "User",
+            password: "Password",
+            userInfo: Person(name: "Aleksey",
+                             sureName: "Lyubushkin",
+                             hobby: "fishing",
+                             job: "Autoportal Ferio",
+                             avatar: "lyubushkin"))
     }
 }
 

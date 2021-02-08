@@ -14,9 +14,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var logInnButton: UIButton!
     
-    let proofLogin = Pass.getLogin()
-    let proofPassword = Pass.getPassword()
-    
+    private let user = User.getInfoAboutUser()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,23 +34,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             let tabBarController = segue.destination as? UITabBarController
         else { return }
         
-        for viewController in tabBarController.viewControllers! {
+        guard
+            let tabBarControllers = tabBarController.viewControllers
+        else { return }
+        
+        for viewController in tabBarControllers {
             
             if let welcomeVC = viewController as? WelcomeViewController {
                 
-                welcomeVC.userName = User.getInfoAboutUser().userInfo.fullName
+                welcomeVC.userName = user.userInfo.fullName
                 
-            } else if let navigationVC =
-                        viewController as? UINavigationController {
-                if let aboutUserVC =
-                    navigationVC.topViewController as? AboutMeViewController {
+            } else if let
+                        navigationVC = viewController as? UINavigationController {
+                if let
+                    aboutUserVC = navigationVC.topViewController as? AboutMeViewController {
                     
-                    aboutUserVC.userHobby =
-                        User.getInfoAboutUser().userInfo.hobby
-                    aboutUserVC.userJob =
-                        User.getInfoAboutUser().userInfo.job
-                    aboutUserVC.fullName =
-                        User.getInfoAboutUser().userInfo.fullName
+                    aboutUserVC.userHobby = user.userInfo.hobby
+                    aboutUserVC.userJob = user.userInfo.job
+                    aboutUserVC.fullName = user.userInfo.fullName
+                    aboutUserVC.userAvatar = user.userInfo.avatar
                     
                 }
             }
@@ -81,8 +82,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func checkLoginPassword() -> Bool {
-        if userNameTextField.text == proofLogin &&
-            passwordTextField.text == proofPassword { return true }
+        if userNameTextField.text == user.userName &&
+            passwordTextField.text == user.password { return true }
 
         return false
     }
@@ -93,9 +94,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         switch button.tag {
         case 0:
-            message = "You name is \(proofLogin) 😉"
+            message = "You name is \(user.userName) 😉"
         case 1:
-            message = "You password is \(proofPassword) 😉"
+            message = "You password is \(user.password) 😉"
         case 2:
             message = "Please, enter correct login and password"
             title = "Invalid login or password"
